@@ -1,3 +1,6 @@
+# 该文件用于创建数据集
+# 下面的函数createDataset有具体注释
+
 import os
 import lmdb # install lmdb by "pip install lmdb"
 import cv2
@@ -10,6 +13,9 @@ from tqdm import tqdm
 import re
 
 def checkImageIsValid(imageBin):
+  """
+  判断图片格式是否合理有效
+  """
   if imageBin is None:
     return False
   imageBuf = np.fromstring(imageBin, dtype=np.uint8)
