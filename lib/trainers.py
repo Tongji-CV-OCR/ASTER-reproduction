@@ -23,6 +23,9 @@ from config import get_args
 global_args = get_args(sys.argv[1:])
 
 class BaseTrainer(object):
+  """
+  基础训练库
+  """
   def __init__(self, model, metric, logs_dir, iters=0, best_res=-1, grad_clip=-1, use_cuda=True, loss_weights={}):
     super(BaseTrainer, self).__init__()
     self.model = model

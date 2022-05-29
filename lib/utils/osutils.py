@@ -22,5 +22,6 @@ def make_symlink_if_not_exists(real_path, link_path):
     if e.errno != errno.EEXIST:
       raise
 
-  cmd = 'ln -s {0} {1}'.format(real_path, link_path)
+  cmd = 'ln -s {0} {1}'.format(real_path, link_path) # cmd会变成"ln -s real_path link_path"
+  # 运行cmd
   os.system(cmd)

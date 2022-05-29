@@ -33,16 +33,28 @@ global_args = get_args(sys.argv[1:])
 
 
 def get_data(data_dir, voc_type, max_len, num_samples, height, width, batch_size, workers, is_train, keep_ratio):
+    """
+    完成数据集和数据迭代器
+    """
+    # 数据集
     if isinstance(data_dir, list):
         dataset_list = []
         for data_dir_ in data_dir:
             dataset_list.append(LmdbDataset(data_dir_, voc_type, max_len, num_samples))
+        # 把dataset_list内的数据集集合起来
         dataset = ConcatDataset(dataset_list)
     else:
         dataset = LmdbDataset(data_dir, voc_type, max_len, num_samples)
     print('total image: ', len(dataset))
 
+    # 数据迭代器
     if is_train:
+        # DataLoader：Data loader. 
+        #             Combines a dataset and a sampler, and provides single- or multi-process iterators over the dataset
+        # drop_last: set to ``True`` to drop the last incomplete batch,
+        #            if the dataset size is not divisible by the batch size. If ``False`` and
+        #            the size of dataset is not divisible by the batch size, then the last batch
+        #            will be smaller. (default: False)
         data_loader = DataLoader(dataset, batch_size=batch_size, num_workers=workers,
                                  shuffle=True, pin_memory=True, drop_last=True,
                                  collate_fn=AlignCollate(imgH=height, imgW=width, keep_ratio=keep_ratio))
@@ -109,6 +121,7 @@ def main(args):
         torch.set_default_tensor_type('torch.FloatTensor')
 
     # Redirect print to both console and log file（将输出重定向发到控制台和log文件）
+    # 根据config.py里的定义，只有运行时该变量有传参时该变量才为True（？）
     if not args.evaluate:
         # make symlink（创建软链接）
         make_symlink_if_not_exists(osp.join(args.real_logs_dir, args.logs_dir), osp.dirname(osp.normpath(args.logs_dir)))
@@ -146,9 +159,10 @@ def main(args):
                          sDim=args.decoder_sdim, attDim=args.attDim, max_len_labels=max_len,
                          eos=test_dataset.char2id[test_dataset.EOS], STN_ON=args.STN_ON)
 
-    # Load from checkpoint
+    # Load from checkpoint（checkpoint存储所有的weights,biases,gradients和其他variables的值）
+    #                     （加载模型基础上继续训练（？））
     if args.evaluation_metric == 'accuracy':
-        best_res = 0
+        best_res = 0 # （best_result？）
     elif args.evaluation_metric == 'editdistance':
         best_res = math.inf
     else:
@@ -157,6 +171,7 @@ def main(args):
     start_iters = 0
     if args.resume:
         checkpoint = load_checkpoint(args.resume)
+        # 加载状态字典（状态字典中存放着每个网络层和其对应的参数张量）
         model.load_state_dict(checkpoint['state_dict'])
 
         # compatibility with the epoch-wise evaluation version
