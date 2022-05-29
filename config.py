@@ -11,8 +11,9 @@ import math
 import argparse
 
 
+# 创建一个解析对象，description：在参数帮助文档之前显示的文本
 parser = argparse.ArgumentParser(description="Softmax loss classification")
-# data
+# data（向解析对象中添加需要关注的命令行参数和选项）
 parser.add_argument('--synthetic_train_data_dir', nargs='+', type=str, metavar='PATH',
                     default=['/share/zhui/reg_dataset/NIPS2014'])
 parser.add_argument('--real_train_data_dir', type=str, metavar='PATH',

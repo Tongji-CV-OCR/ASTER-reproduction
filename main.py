@@ -28,7 +28,8 @@ from lib.utils.logging import Logger, TFLogger
 from lib.utils.serialization import load_checkpoint, save_checkpoint
 from lib.utils.osutils import make_symlink_if_not_exists
 
-global_args = get_args(sys.argv[1:])
+# argv[1:]代表外部用户传入的系统命令参数的集合
+global_args = get_args(sys.argv[1:]) 
 
 
 def get_data(data_dir, voc_type, max_len, num_samples, height, width, batch_size, workers, is_train, keep_ratio):
@@ -88,28 +89,34 @@ def get_dataloader(synthetic_dataset, real_dataset, height, width, batch_size, w
 
 def main(args):
     np.random.seed(args.seed)
+    # 为CPU设置种子用于生成随机数，使得结果是确定的
     torch.manual_seed(args.seed)
+    # 为当前GPU设置随机种子
     torch.cuda.manual_seed(args.seed)
+    # 若使用多个GPU，为所有的GPU设置种子
     torch.cuda.manual_seed_all(args.seed)
+    # 这样设置可以加速卷积神经网络的运行速度
     cudnn.benchmark = True
+    # 这样设置可以保证同一个网络结构在相同的输入下输出是固定的
     torch.backends.cudnn.deterministic = True
 
     args.cuda = args.cuda and torch.cuda.is_available()
+    # 设置pytorch运行的默认浮点数
     if args.cuda:
         print('using cuda.')
         torch.set_default_tensor_type('torch.cuda.FloatTensor')
     else:
         torch.set_default_tensor_type('torch.FloatTensor')
 
-    # Redirect print to both console and log file
+    # Redirect print to both console and log file（将输出重定向发到控制台和log文件）
     if not args.evaluate:
-        # make symlink
+        # make symlink（创建软链接）
         make_symlink_if_not_exists(osp.join(args.real_logs_dir, args.logs_dir), osp.dirname(osp.normpath(args.logs_dir)))
         sys.stdout = Logger(osp.join(args.logs_dir, 'log.txt'))
         train_tfLogger = TFLogger(osp.join(args.logs_dir, 'train'))
         eval_tfLogger = TFLogger(osp.join(args.logs_dir, 'eval'))
 
-    # Save the args to disk
+    # Save the args to disk（保存变量到磁盘）
     if not args.evaluate:
         cfg_save_path = osp.join(args.logs_dir, 'cfg.txt')
         cfgs = vars(args)
