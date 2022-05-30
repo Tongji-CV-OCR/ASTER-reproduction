@@ -23,6 +23,9 @@ def conv3x3_block(in_planes, out_planes, stride=1):
 
 
 class STNHead(nn.Module):
+  """
+  Spatial Transformer Networks(取图片的需要的一部分)(放在CNN的前面，用来转换输入的图片数据，其实也可以转换feature map)
+  """
   def __init__(self, in_planes, num_ctrlpoints, activation='none'):
     super(STNHead, self).__init__()
 

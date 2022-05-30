@@ -23,7 +23,7 @@ global_args = get_args(sys.argv[1:])
 
 class ModelBuilder(nn.Module):
   """
-  This is the integrated model.
+  This is the integrated model.(用于在main.py/demo.py中创建模型)
   """
   def __init__(self, arch, rec_num_classes, sDim, attDim, max_len_labels, eos, STN_ON=False):
     super(ModelBuilder, self).__init__()
@@ -69,7 +69,7 @@ class ModelBuilder(nn.Module):
                                   input_dict['rec_targets'], \
                                   input_dict['rec_lengths']
 
-    # rectification
+    # rectification（图像矫正）
     if self.STN_ON:
       # input images are downsampled before being fed into stn_head.
       stn_input = F.interpolate(x, self.tps_inputsize, mode='bilinear', align_corners=True)

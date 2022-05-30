@@ -21,6 +21,9 @@ def conv1x1(in_planes, out_planes, stride=1):
 
 
 def get_sinusoid_encoding(n_position, feat_dim, wave_length=10000):
+  """
+  根据n_position和feat_dim进行正弦编码（周期性特征的编码）
+  """
   # [n_position]
   positions = torch.arange(0, n_position)#.cuda()
   # [feat_dim]
@@ -35,7 +38,9 @@ def get_sinusoid_encoding(n_position, feat_dim, wave_length=10000):
 
 
 class AsterBlock(nn.Module):
-
+  """
+  ASTER(Attentional Scene Text Recognizer)模型
+  """
   def __init__(self, inplanes, planes, stride=1, downsample=None):
     super(AsterBlock, self).__init__()
     self.conv1 = conv1x1(inplanes, planes, stride)

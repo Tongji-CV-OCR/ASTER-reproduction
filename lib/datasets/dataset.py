@@ -204,7 +204,7 @@ class AlignCollate(object):
 
 def test():
   """
-  数据集内容的显示（训练集）
+  数据集内容的显示（训练集），可视化检测效果
   """
   # lmdb_path = "/share/zhui/reg_dataset/NIPS2014"
   lmdb_path = "/share/zhui/reg_dataset/IIIT5K_3000"
