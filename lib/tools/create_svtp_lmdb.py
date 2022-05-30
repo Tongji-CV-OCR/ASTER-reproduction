@@ -1,4 +1,4 @@
-# 该文件用于创建数据集
+# 该文件用于创建数据集（LMDB格式）
 # 下面的函数createDataset有具体注释
 
 import os

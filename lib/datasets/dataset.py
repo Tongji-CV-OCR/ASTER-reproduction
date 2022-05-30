@@ -34,6 +34,9 @@ if global_args.run_on_remote:
   import moxing as mox
 
 class LmdbDataset(data.Dataset):
+  """
+  将数据集标注为Lmdb格式
+  """
   def __init__(self, root, voc_type, max_len, num_samples, transform=None):
     super(LmdbDataset, self).__init__()
 
@@ -123,6 +126,9 @@ class LmdbDataset(data.Dataset):
 
 
 class ResizeNormalize(object):
+  """
+  图片标准化
+  """
   def __init__(self, size, interpolation=Image.BILINEAR):
     self.size = size
     self.interpolation = interpolation
@@ -162,7 +168,9 @@ class RandomSequentialSampler(sampler.Sampler):
 
 
 class AlignCollate(object):
-
+  """
+  数据集标准化（对齐）
+  """
   def __init__(self, imgH=32, imgW=100, keep_ratio=False, min_ratio=1):
     self.imgH = imgH
     self.imgW = imgW
@@ -195,6 +203,9 @@ class AlignCollate(object):
 
 
 def test():
+  """
+  数据集内容的显示（训练集）
+  """
   # lmdb_path = "/share/zhui/reg_dataset/NIPS2014"
   lmdb_path = "/share/zhui/reg_dataset/IIIT5K_3000"
   train_dataset = LmdbDataset(root=lmdb_path, voc_type='ALLCASES_SYMBOLS', max_len=50)
@@ -207,7 +218,7 @@ def test():
         collate_fn=AlignCollate(imgH=64, imgW=256, keep_ratio=False))
 
   for i, (images, labels, label_lens) in enumerate(train_dataloader):
-    # visualization of input image
+    # visualization of input image（展示输入图片本身及其各项信息）
     # toPILImage = transforms.ToPILImage()
     images = images.permute(0,2,3,1)
     images = to_numpy(images)
