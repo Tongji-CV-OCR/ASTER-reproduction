@@ -1,4 +1,4 @@
-# 注意力识别
+# 注意力识别网络
 from __future__ import absolute_import
 
 import sys

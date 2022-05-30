@@ -35,7 +35,7 @@ if global_args.run_on_remote:
 
 class LmdbDataset(data.Dataset):
   """
-  将数据集标注为Lmdb格式
+  Lmdb格式数据集
   """
   def __init__(self, root, voc_type, max_len, num_samples, transform=None):
     super(LmdbDataset, self).__init__()

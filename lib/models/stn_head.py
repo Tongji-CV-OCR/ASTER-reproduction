@@ -1,3 +1,4 @@
+# 基于TPS的STN模块
 from __future__ import absolute_import
 
 import math
@@ -24,7 +25,8 @@ def conv3x3_block(in_planes, out_planes, stride=1):
 
 class STNHead(nn.Module):
   """
-  Spatial Transformer Networks(取图片的需要的一部分)(放在CNN的前面，用来转换输入的图片数据，其实也可以转换feature map)
+  Spatial Transformer Networks（空间变换网络）
+  (取图片的需要的一部分)(放在CNN的前面，用来转换输入的图片数据，其实也可以转换feature map)
   """
   def __init__(self, in_planes, num_ctrlpoints, activation='none'):
     super(STNHead, self).__init__()
