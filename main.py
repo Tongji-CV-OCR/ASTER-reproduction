@@ -160,7 +160,7 @@ def main(args):
                          eos=test_dataset.char2id[test_dataset.EOS], STN_ON=args.STN_ON)
 
     # Load from checkpoint（checkpoint存储所有的weights,biases,gradients和其他variables的值）
-    #                     （加载模型基础上继续训练（？））
+    #                     （加载模型基础上继续训练）
     if args.evaluation_metric == 'accuracy':
         best_res = 0 # （best_result？）
     elif args.evaluation_metric == 'editdistance':

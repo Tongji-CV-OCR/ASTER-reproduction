@@ -33,14 +33,19 @@ global_args = get_args(sys.argv[1:])
 
 
 def image_process(image_path, imgH=32, imgW=100, keep_ratio=False, min_ratio=1):
+    """
+    图像预处理
+    """
     img = Image.open(image_path).convert('RGB')
 
     if keep_ratio:
+        # 定宽定长宽比
         w, h = img.size
         ratio = w / float(h)
         imgW = int(np.floor(ratio * imgH))
         imgW = max(imgH * min_ratio, imgW)
-
+    
+    # 定宽定长
     img = img.resize((imgW, imgH), Image.BILINEAR)
     img = transforms.ToTensor()(img)
     img.sub_(0.5).div_(0.5)
