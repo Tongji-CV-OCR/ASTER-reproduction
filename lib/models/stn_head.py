@@ -1,4 +1,4 @@
-# 基于TPS的STN模块
+# STN模块
 from __future__ import absolute_import
 
 import math

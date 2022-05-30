@@ -1,3 +1,5 @@
+# 采用自定义的AverageMeter类来管理一些变量的更新
+# 当调用该类对象的update方法的时候就会进行变量更新
 from __future__ import absolute_import
 
 

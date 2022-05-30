@@ -1,5 +1,5 @@
-# 该文件用于创建数据集（LMDB格式）
-# 下面的函数createDataset有具体注释
+# 创建LMDB格式数据集
+# street view text perspective数据集，以透视文字为主
 
 import os
 import lmdb # install lmdb by "pip install lmdb"

@@ -1,3 +1,4 @@
+# 基于TPS的stn模块
 # 薄板样条插值（Thin Plate Spline）
 # 将其中一个图片进行特定的形变，使得其控制点可以与另一张图片的控制点重合
 from __future__ import absolute_import

@@ -1,3 +1,5 @@
+# reduce copy pasting same functionality and unity functions
+# to handle common problems with delete of file or directory or creating directory
 from __future__ import absolute_import
 import os
 import errno

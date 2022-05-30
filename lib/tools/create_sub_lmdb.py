@@ -1,3 +1,4 @@
+# 创建LMDB格式子数据集
 import lmdb
 import six
 import numpy as np

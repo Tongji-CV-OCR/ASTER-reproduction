@@ -1,3 +1,4 @@
+# 用序列化保存模型便于继续训练
 from __future__ import print_function, absolute_import
 import json
 import os
